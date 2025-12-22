@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>利润计算器</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            --bg-input: #0f172a;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #34d399;
+            --accent-orange: #fb923c;
+            --accent-pink: #f472b6;
+            --accent-red: #f87171;
+            --border: rgba(148, 163, 184, 0.1);
+            --border-focus: rgba(99, 102, 241, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 40px 20px;
+            background-image:
+                radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 900px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 40px rgba(99, 102, 241, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .icon-cost {
+            background: linear-gradient(135deg, var(--accent-orange), #f59e0b);
+        }
+
+        .icon-revenue {
+            background: linear-gradient(135deg, var(--accent-green), #22c55e);
+        }
+
+        .icon-employee {
+            background: linear-gradient(135deg, var(--accent-blue), var(--primary));
+        }
+
+        .icon-result {
+            background: linear-gradient(135deg, var(--accent-pink), #ec4899);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .card-desc {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+        }
+
+        .input-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .input-group label .emoji {
+            font-size: 1rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .prefix {
+            position: absolute;
+            left: 15px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .input-wrapper .suffix {
+            position: absolute;
+            right: 15px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 14px 60px 14px 35px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(56, 189, 248, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .result-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .result-item:hover {
+            transform: scale(1.02);
+        }
+
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .result-value {
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .result-value.positive {
+            background: linear-gradient(135deg, var(--accent-green), #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-value.negative {
+            background: linear-gradient(135deg, var(--accent-red), #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-value.neutral {
+            background: linear-gradient(135deg, var(--accent-blue), var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 20px 0;
+        }
+
+        .employee-section {
+            margin-top: 15px;
+        }
+
+        .employee-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .employee-row .input-group {
+            margin-bottom: 0;
+        }
+
+        .btn-remove {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(248, 113, 113, 0.2);
+            color: var(--accent-red);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-remove:hover {
+            background: var(--accent-red);
+            color: white;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px dashed var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-add:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .formula-box {
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 4px solid var(--primary);
+            border-radius: 0 12px 12px 0;
+            padding: 15px 20px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .formula-box code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 8px;
+            border-radius: 6px;
+            color: var(--accent-blue);
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+
+        .summary-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-top: 1px solid var(--border);
+            margin-top: 15px;
+        }
+
+        .summary-bar .label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .summary-bar .value {
+            color: var(--accent-orange);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .employee-row {
+                grid-template-columns: 1fr;
+            }
+
+            .result-value {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 利润计算器</h1>
+            <p class="subtitle">实时计算净利润，清晰掌握收支情况</p>
+        </header>
+
+        <div class="grid-layout">
+            <!-- 月度成本设置 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-cost">💸</div>
+                    <div>
+                        <h2 class="card-title">月度成本设置</h2>
+                        <p class="card-desc">调整各项固定开支</p>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🏠</span> 房租</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="rent" value="2500" min="0" step="100">
+                        <span class="suffix">/月</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">💡</span> 水电费</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="utilities" value="500" min="0" step="50">
+                        <span class="suffix">/月</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🌐</span> 网费</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="internet" value="250" min="0" step="50">
+                        <span class="suffix">/月</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">💻</span> 设备费用（分期/租赁）</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="equipment" value="13000" min="0" step="500">
+                        <span class="suffix">/月</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🛠️</span> 其他费用</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="other" value="500" min="0" step="100">
+                        <span class="suffix">/月</span>
+                    </div>
+                </div>
+
+                <div class="summary-bar">
+                    <span class="label">📊 月度总成本</span>
+                    <span class="value" id="total-cost">¥16,750</span>
+                </div>
+            </div>
+
+            <!-- 收入与佣金设置 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-revenue">📈</div>
+                    <div>
+                        <h2 class="card-title">收入与佣金设置</h2>
+                        <p class="card-desc">设置工作天数和佣金比例</p>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">📅</span> 每月工作天数</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="work-days" value="26" min="1" max="31" step="1"
+                            style="padding-left: 15px;">
+                        <span class="suffix">天</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">💎</span> 佣金抽成比例</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="commission" value="30" min="1" max="100" step="1"
+                            style="padding-left: 15px;">
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+
+                <div class="formula-box">
+                    <strong>💡 计算公式</strong><br>
+                    <code>净利润 = Σ(员工每日盈利 × 天数) × 佣金比例 - 总成本</code>
+                </div>
+
+                <div class="summary-bar">
+                    <span class="label">📊 总毛收入</span>
+                    <span class="value" id="gross-revenue" style="color: var(--accent-green);">¥0</span>
+                </div>
+            </div>
+
+            <!-- 员工盈利数据 -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <div class="card-icon icon-employee">👥</div>
+                    <div>
+                        <h2 class="card-title">员工盈利数据</h2>
+                        <p class="card-desc">添加每位员工的每日盈利金额</p>
+                    </div>
+                </div>
+
+                <div class="employee-section" id="employee-list">
+                    <!-- 员工行将通过 JS 动态添加 -->
+                </div>
+
+                <button class="btn-add" id="add-employee">
+                    <span>➕</span> 添加员工
+                </button>
+            </div>
+
+            <!-- 结果展示 -->
+            <div class="card full-width result-card">
+                <div class="card-header">
+                    <div class="card-icon icon-result">🎯</div>
+                    <div>
+                        <h2 class="card-title">计算结果</h2>
+                        <p class="card-desc">实时显示利润分析</p>
+                    </div>
+                </div>
+
+                <div class="result-grid">
+                    <div class="result-item">
+                        <p class="result-label">月度总成本</p>
+                        <p class="result-value neutral" id="result-cost">¥16,750</p>
+                    </div>
+                    <div class="result-item">
+                        <p class="result-label">员工总产出</p>
+                        <p class="result-value neutral" id="result-output">¥0</p>
+                    </div>
+                    <div class="result-item">
+                        <p class="result-label">佣金收入（<span id="commission-rate">30</span>%）</p>
+                        <p class="result-value neutral" id="result-commission">¥0</p>
+                    </div>
+                    <div class="result-item">
+                        <p class="result-label">💎 净利润</p>
+                        <p class="result-value positive" id="result-profit">¥0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 员工数据
+        let employees = [];
+        let employeeId = 0;
+
+        // 初始化添加两个员工示例
+        function init() {
+            addEmployee('员工 1', 300);
+            addEmployee('员工 2', 350);
+            calculate();
+        }
+
+        // 添加员工
+        function addEmployee(name = '', dailyEarning = 0) {
+            const id = ++employeeId;
+            employees.push({ id, name: name || `员工 ${id}`, dailyEarning });
+            renderEmployees();
+        }
+
+        // 移除员工
+        function removeEmployee(id) {
+            employees = employees.filter(e => e.id !== id);
+            renderEmployees();
+            calculate();
+        }
+
+        // 渲染员工列表
+        function renderEmployees() {
+            const container = document.getElementById('employee-list');
+            container.innerHTML = employees.map(emp => `
+                <div class="employee-row" data-id="${emp.id}">
+                    <div class="input-group">
+                        <label>👤 员工名称</label>
+                        <div class="input-wrapper">
+                            <input type="text" class="emp-name" value="${emp.name}" 
+                                style="padding: 14px 15px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 12px; color: var(--text-primary); font-size: 1rem; font-family: inherit; width: 100%;"
+                                onchange="updateEmployee(${emp.id}, 'name', this.value)">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>💵 每日盈利</label>
+                        <div class="input-wrapper">
+                            <span class="prefix">¥</span>
+                            <input type="number" class="emp-earning" value="${emp.dailyEarning}" min="0" step="10"
+                                onchange="updateEmployee(${emp.id}, 'dailyEarning', parseFloat(this.value) || 0)"
+                                oninput="updateEmployee(${emp.id}, 'dailyEarning', parseFloat(this.value) || 0)">
+                            <span class="suffix">/天</span>
+                        </div>
+                    </div>
+                    <button class="btn-remove" onclick="removeEmployee(${emp.id})" title="删除员工">✕</button>
+                </div>
+            `).join('');
+        }
+
+        // 更新员工数据
+        function updateEmployee(id, field, value) {
+            const emp = employees.find(e => e.id === id);
+            if (emp) {
+                emp[field] = value;
+                calculate();
+            }
+        }
+
+        // 格式化货币
+        function formatCurrency(num) {
+            return '¥' + num.toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+
+        // 计算所有数据
+        function calculate() {
+            // 获取成本
+            const rent = parseFloat(document.getElementById('rent').value) || 0;
+            const utilities = parseFloat(document.getElementById('utilities').value) || 0;
+            const internet = parseFloat(document.getElementById('internet').value) || 0;
+            const equipment = parseFloat(document.getElementById('equipment').value) || 0;
+            const other = parseFloat(document.getElementById('other').value) || 0;
+
+            // 总成本
+            const totalCost = rent + utilities + internet + equipment + other;
+
+            // 获取工作天数和佣金比例
+            const workDays = parseInt(document.getElementById('work-days').value) || 26;
+            const commissionRate = parseFloat(document.getElementById('commission').value) || 30;
+
+            // 计算员工总产出
+            const totalOutput = employees.reduce((sum, emp) => {
+                return sum + (emp.dailyEarning * workDays);
+            }, 0);
+
+            // 计算佣金收入
+            const commissionIncome = totalOutput * (commissionRate / 100);
+
+            // 计算净利润
+            const netProfit = commissionIncome - totalCost;
+
+            // 更新显示
+            document.getElementById('total-cost').textContent = formatCurrency(totalCost);
+            document.getElementById('gross-revenue').textContent = formatCurrency(commissionIncome);
+            document.getElementById('commission-rate').textContent = commissionRate;
+
+            document.getElementById('result-cost').textContent = formatCurrency(totalCost);
+            document.getElementById('result-output').textContent = formatCurrency(totalOutput);
+            document.getElementById('result-commission').textContent = formatCurrency(commissionIncome);
+
+            const profitElement = document.getElementById('result-profit');
+            profitElement.textContent = formatCurrency(netProfit);
+            profitElement.className = 'result-value ' + (netProfit >= 0 ? 'positive' : 'negative');
+        }
+
+        // 绑定事件
+        document.getElementById('add-employee').addEventListener('click', () => {
+            addEmployee();
+            calculate();
+        });
+
+        // 绑定所有输入框的事件
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', calculate);
+            input.addEventListener('change', calculate);
+        });
+
+        // 初始化
+        init();
+    </script>
+</body>
+
+</html>
