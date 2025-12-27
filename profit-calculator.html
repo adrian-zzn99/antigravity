@@ -21,6 +21,7 @@
             --accent-orange: #fb923c;
             --accent-pink: #f472b6;
             --accent-red: #f87171;
+            --accent-purple: #a78bfa;
             --border: rgba(148, 163, 184, 0.1);
             --border-focus: rgba(99, 102, 241, 0.5);
         }
@@ -43,7 +44,7 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -70,7 +71,7 @@
         .grid-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 30px;
+            gap: 25px;
         }
 
         @media (max-width: 900px) {
@@ -126,6 +127,22 @@
             background: linear-gradient(135deg, var(--accent-pink), #ec4899);
         }
 
+        .icon-initial {
+            background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+        }
+
+        .icon-hardware {
+            background: linear-gradient(135deg, #60a5fa, #3b82f6);
+        }
+
+        .icon-software {
+            background: linear-gradient(135deg, #c084fc, #a855f7);
+        }
+
+        .icon-peripheral {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+        }
+
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
@@ -137,16 +154,16 @@
         }
 
         .input-group {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .input-group label {
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
         }
 
@@ -162,26 +179,28 @@
 
         .input-wrapper .prefix {
             position: absolute;
-            left: 15px;
+            left: 12px;
             color: var(--text-secondary);
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .input-wrapper .suffix {
             position: absolute;
-            right: 15px;
+            right: 12px;
             color: var(--text-secondary);
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         input[type="number"] {
             width: 100%;
-            padding: 14px 60px 14px 35px;
+            padding: 12px 50px 12px 30px;
             background: var(--bg-input);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 10px;
             color: var(--text-primary);
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-family: inherit;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
@@ -209,14 +228,14 @@
 
         .result-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
         }
 
         .result-item {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 15px;
-            padding: 20px;
+            padding: 18px;
             text-align: center;
             transition: transform 0.2s ease;
         }
@@ -227,12 +246,12 @@
 
         .result-label {
             color: var(--text-secondary);
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+            font-size: 0.8rem;
+            margin-bottom: 8px;
         }
 
         .result-value {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
         }
 
@@ -257,10 +276,11 @@
             background-clip: text;
         }
 
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 20px 0;
+        .result-value.purple {
+            background: linear-gradient(135deg, var(--accent-purple), #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .employee-section {
@@ -296,13 +316,13 @@
         }
 
         .btn-remove {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
             border: none;
             background: rgba(248, 113, 113, 0.2);
             color: var(--accent-red);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -317,12 +337,12 @@
 
         .btn-add {
             width: 100%;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 10px;
             border: 2px dashed var(--border);
             background: transparent;
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-family: inherit;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -342,38 +362,133 @@
             background: rgba(99, 102, 241, 0.1);
             border-left: 4px solid var(--primary);
             border-radius: 0 12px 12px 0;
-            padding: 15px 20px;
-            margin-top: 20px;
-            font-size: 0.9rem;
+            padding: 12px 15px;
+            margin-top: 15px;
+            font-size: 0.85rem;
             color: var(--text-secondary);
         }
 
         .formula-box code {
             background: rgba(0, 0, 0, 0.3);
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 2px 6px;
+            border-radius: 5px;
             color: var(--accent-blue);
             font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.8rem;
         }
 
         .summary-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
+            padding: 10px 0;
             border-top: 1px solid var(--border);
-            margin-top: 15px;
+            margin-top: 12px;
         }
 
         .summary-bar .label {
             color: var(--text-secondary);
             font-weight: 500;
+            font-size: 0.9rem;
         }
 
         .summary-bar .value {
-            color: var(--accent-orange);
             font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .summary-bar .value.orange {
+            color: var(--accent-orange);
+        }
+
+        .summary-bar .value.green {
+            color: var(--accent-green);
+        }
+
+        .summary-bar .value.purple {
+            color: var(--accent-purple);
+        }
+
+        .summary-bar .value.blue {
+            color: var(--accent-blue);
+        }
+
+        /* 分类标题 */
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 15px 0 10px 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .category-title .cat-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        /* 首月汇总样式 */
+        .summary-card {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(139, 92, 246, 0.1));
+            border: 1px solid rgba(167, 139, 250, 0.3);
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .summary-item .item-label {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            margin-bottom: 6px;
+        }
+
+        .summary-item .item-value {
             font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .total-highlight {
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.3), rgba(139, 92, 246, 0.2));
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .total-highlight .total-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .total-highlight .total-value {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-purple), #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         @media (max-width: 768px) {
@@ -382,7 +497,7 @@
             }
 
             .card {
-                padding: 20px;
+                padding: 18px;
             }
 
             .employee-row {
@@ -390,7 +505,11 @@
             }
 
             .result-value {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
+            }
+
+            .total-highlight .total-value {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -404,13 +523,128 @@
         </header>
 
         <div class="grid-layout">
+            <!-- 初始投入 - 硬件设备 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-hardware">🖥️</div>
+                    <div>
+                        <h2 class="card-title">硬件设备（一次性）</h2>
+                        <p class="card-desc">主机、显示器、转换卡等</p>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">💻</span> 主机</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="hw-host" value="3600" min="0" step="100" class="initial-cost">
+                        <span class="suffix">×4台</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🖥️</span> 显示器</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="hw-monitor" value="800" min="0" step="100" class="initial-cost">
+                        <span class="suffix">×4台</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🔌</span> 转换卡/采集卡</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="hw-capture" value="500" min="0" step="50" class="initial-cost">
+                        <span class="suffix">×4个</span>
+                    </div>
+                </div>
+
+                <div class="summary-bar">
+                    <span class="label">硬件小计</span>
+                    <span class="value blue" id="hw-subtotal">¥19,600</span>
+                </div>
+            </div>
+
+            <!-- 初始投入 - 软件设备 -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon icon-software">📀</div>
+                    <div>
+                        <h2 class="card-title">软件设备（一次性）</h2>
+                        <p class="card-desc">插件、软件授权等</p>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🔧</span> 直播插件</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="sw-plugin1" value="500" min="0" step="50" class="initial-cost">
+                        <span class="suffix">×4套</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🎬</span> 其他软件</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="sw-other" value="300" min="0" step="50" class="initial-cost">
+                        <span class="suffix">×4套</span>
+                    </div>
+                </div>
+
+                <div class="summary-bar">
+                    <span class="label">软件小计</span>
+                    <span class="value purple" id="sw-subtotal">¥3,200</span>
+                </div>
+
+                <!-- 外设 -->
+                <div class="category-title">
+                    <div class="cat-icon icon-peripheral">🎧</div>
+                    外设配件
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🎧</span> 耳机</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="per-headphone" value="150" min="0" step="50" class="initial-cost">
+                        <span class="suffix">×4个</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">⌨️</span> 键盘</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="per-keyboard" value="100" min="0" step="50" class="initial-cost">
+                        <span class="suffix">×4个</span>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label><span class="emoji">🖱️</span> 鼠标</label>
+                    <div class="input-wrapper">
+                        <span class="prefix">¥</span>
+                        <input type="number" id="per-mouse" value="50" min="0" step="10" class="initial-cost">
+                        <span class="suffix">×4个</span>
+                    </div>
+                </div>
+
+                <div class="summary-bar">
+                    <span class="label">外设小计</span>
+                    <span class="value orange" id="per-subtotal">¥1,200</span>
+                </div>
+            </div>
+
             <!-- 月度成本设置 -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon icon-cost">💸</div>
                     <div>
-                        <h2 class="card-title">月度成本设置</h2>
-                        <p class="card-desc">调整各项固定开支</p>
+                        <h2 class="card-title">月度固定成本</h2>
+                        <p class="card-desc">每月持续支出</p>
                     </div>
                 </div>
 
@@ -418,7 +652,7 @@
                     <label><span class="emoji">🏠</span> 房租</label>
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
-                        <input type="number" id="rent" value="2500" min="0" step="100">
+                        <input type="number" id="rent" value="2500" min="0" step="100" class="monthly-cost">
                         <span class="suffix">/月</span>
                     </div>
                 </div>
@@ -427,7 +661,7 @@
                     <label><span class="emoji">💡</span> 水电费</label>
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
-                        <input type="number" id="utilities" value="500" min="0" step="50">
+                        <input type="number" id="utilities" value="500" min="0" step="50" class="monthly-cost">
                         <span class="suffix">/月</span>
                     </div>
                 </div>
@@ -436,16 +670,16 @@
                     <label><span class="emoji">🌐</span> 网费</label>
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
-                        <input type="number" id="internet" value="250" min="0" step="50">
+                        <input type="number" id="internet" value="250" min="0" step="50" class="monthly-cost">
                         <span class="suffix">/月</span>
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <label><span class="emoji">💻</span> 设备费用（分期/租赁）</label>
+                    <label><span class="emoji">💻</span> 设备分期/租赁</label>
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
-                        <input type="number" id="equipment" value="13000" min="0" step="500">
+                        <input type="number" id="equipment-monthly" value="0" min="0" step="500" class="monthly-cost">
                         <span class="suffix">/月</span>
                     </div>
                 </div>
@@ -454,14 +688,14 @@
                     <label><span class="emoji">🛠️</span> 其他费用</label>
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
-                        <input type="number" id="other" value="500" min="0" step="100">
+                        <input type="number" id="other-monthly" value="500" min="0" step="100" class="monthly-cost">
                         <span class="suffix">/月</span>
                     </div>
                 </div>
 
                 <div class="summary-bar">
                     <span class="label">📊 月度总成本</span>
-                    <span class="value" id="total-cost">¥16,750</span>
+                    <span class="value orange" id="total-monthly-cost">¥3,750</span>
                 </div>
             </div>
 
@@ -479,7 +713,7 @@
                     <label><span class="emoji">📅</span> 每月工作天数</label>
                     <div class="input-wrapper">
                         <input type="number" id="work-days" value="26" min="1" max="31" step="1"
-                            style="padding-left: 15px;">
+                            style="padding-left: 12px;">
                         <span class="suffix">天</span>
                     </div>
                 </div>
@@ -488,19 +722,19 @@
                     <label><span class="emoji">💎</span> 佣金抽成比例</label>
                     <div class="input-wrapper">
                         <input type="number" id="commission" value="30" min="1" max="100" step="1"
-                            style="padding-left: 15px;">
+                            style="padding-left: 12px;">
                         <span class="suffix">%</span>
                     </div>
                 </div>
 
                 <div class="formula-box">
                     <strong>💡 计算公式</strong><br>
-                    <code>净利润 = Σ(员工每日盈利 × 天数) × 佣金比例 - 总成本</code>
+                    <code>净利润 = Σ(员工每日盈利 × 天数) × 佣金% - 月度成本</code>
                 </div>
 
                 <div class="summary-bar">
-                    <span class="label">📊 总毛收入</span>
-                    <span class="value" id="gross-revenue" style="color: var(--accent-green);">¥0</span>
+                    <span class="label">📊 佣金收入</span>
+                    <span class="value green" id="gross-revenue">¥0</span>
                 </div>
             </div>
 
@@ -523,20 +757,55 @@
                 </button>
             </div>
 
-            <!-- 结果展示 -->
+            <!-- 首月总投入汇总 -->
+            <div class="card full-width summary-card">
+                <div class="card-header">
+                    <div class="card-icon icon-initial">📊</div>
+                    <div>
+                        <h2 class="card-title">首月总投入汇总</h2>
+                        <p class="card-desc">初始投入 + 首月运营成本</p>
+                    </div>
+                </div>
+
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <p class="item-label">🖥️ 硬件设备</p>
+                        <p class="item-value" id="sum-hardware">¥19,600</p>
+                    </div>
+                    <div class="summary-item">
+                        <p class="item-label">📀 软件设备</p>
+                        <p class="item-value" id="sum-software">¥3,200</p>
+                    </div>
+                    <div class="summary-item">
+                        <p class="item-label">🎧 外设配件</p>
+                        <p class="item-value" id="sum-peripheral">¥1,200</p>
+                    </div>
+                    <div class="summary-item">
+                        <p class="item-label">📅 首月运营</p>
+                        <p class="item-value" id="sum-monthly">¥3,750</p>
+                    </div>
+                </div>
+
+                <div class="total-highlight">
+                    <p class="total-label">💎 首月总投入资金</p>
+                    <p class="total-value" id="first-month-total">¥27,750</p>
+                </div>
+            </div>
+
+            <!-- 月度利润计算结果 -->
             <div class="card full-width result-card">
                 <div class="card-header">
                     <div class="card-icon icon-result">🎯</div>
                     <div>
-                        <h2 class="card-title">计算结果</h2>
-                        <p class="card-desc">实时显示利润分析</p>
+                        <h2 class="card-title">月度利润分析</h2>
+                        <p class="card-desc">实时计算每月净利润</p>
                     </div>
                 </div>
 
                 <div class="result-grid">
                     <div class="result-item">
-                        <p class="result-label">月度总成本</p>
-                        <p class="result-value neutral" id="result-cost">¥16,750</p>
+                        <p class="result-label">月度成本</p>
+                        <p class="result-value neutral" id="result-cost">¥3,750</p>
                     </div>
                     <div class="result-item">
                         <p class="result-label">员工总产出</p>
@@ -547,7 +816,7 @@
                         <p class="result-value neutral" id="result-commission">¥0</p>
                     </div>
                     <div class="result-item">
-                        <p class="result-label">💎 净利润</p>
+                        <p class="result-label">💎 月净利润</p>
                         <p class="result-value positive" id="result-profit">¥0</p>
                     </div>
                 </div>
@@ -560,10 +829,12 @@
         let employees = [];
         let employeeId = 0;
 
-        // 初始化添加两个员工示例
+        // 初始化
         function init() {
             addEmployee('员工 1', 300);
             addEmployee('员工 2', 350);
+            addEmployee('员工 3', 280);
+            addEmployee('员工 4', 320);
             calculate();
         }
 
@@ -590,7 +861,7 @@
                         <label>👤 员工名称</label>
                         <div class="input-wrapper">
                             <input type="text" class="emp-name" value="${emp.name}" 
-                                style="padding: 14px 15px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 12px; color: var(--text-primary); font-size: 1rem; font-family: inherit; width: 100%;"
+                                style="padding: 12px; background: var(--bg-input); border: 1px solid var(--border); border-radius: 10px; color: var(--text-primary); font-size: 0.95rem; font-family: inherit; width: 100%;"
                                 onchange="updateEmployee(${emp.id}, 'name', this.value)">
                         </div>
                     </div>
@@ -625,15 +896,38 @@
 
         // 计算所有数据
         function calculate() {
-            // 获取成本
+            const qty = 4; // 设备数量
+
+            // 硬件成本（一次性）
+            const hwHost = (parseFloat(document.getElementById('hw-host').value) || 0) * qty;
+            const hwMonitor = (parseFloat(document.getElementById('hw-monitor').value) || 0) * qty;
+            const hwCapture = (parseFloat(document.getElementById('hw-capture').value) || 0) * qty;
+            const hwSubtotal = hwHost + hwMonitor + hwCapture;
+
+            // 软件成本（一次性）
+            const swPlugin1 = (parseFloat(document.getElementById('sw-plugin1').value) || 0) * qty;
+            const swOther = (parseFloat(document.getElementById('sw-other').value) || 0) * qty;
+            const swSubtotal = swPlugin1 + swOther;
+
+            // 外设成本（一次性）
+            const perHeadphone = (parseFloat(document.getElementById('per-headphone').value) || 0) * qty;
+            const perKeyboard = (parseFloat(document.getElementById('per-keyboard').value) || 0) * qty;
+            const perMouse = (parseFloat(document.getElementById('per-mouse').value) || 0) * qty;
+            const perSubtotal = perHeadphone + perKeyboard + perMouse;
+
+            // 月度成本
             const rent = parseFloat(document.getElementById('rent').value) || 0;
             const utilities = parseFloat(document.getElementById('utilities').value) || 0;
             const internet = parseFloat(document.getElementById('internet').value) || 0;
-            const equipment = parseFloat(document.getElementById('equipment').value) || 0;
-            const other = parseFloat(document.getElementById('other').value) || 0;
+            const equipmentMonthly = parseFloat(document.getElementById('equipment-monthly').value) || 0;
+            const otherMonthly = parseFloat(document.getElementById('other-monthly').value) || 0;
+            const totalMonthlyCost = rent + utilities + internet + equipmentMonthly + otherMonthly;
 
-            // 总成本
-            const totalCost = rent + utilities + internet + equipment + other;
+            // 初始投入总计
+            const totalInitialCost = hwSubtotal + swSubtotal + perSubtotal;
+
+            // 首月总投入
+            const firstMonthTotal = totalInitialCost + totalMonthlyCost;
 
             // 获取工作天数和佣金比例
             const workDays = parseInt(document.getElementById('work-days').value) || 26;
@@ -647,15 +941,28 @@
             // 计算佣金收入
             const commissionIncome = totalOutput * (commissionRate / 100);
 
-            // 计算净利润
-            const netProfit = commissionIncome - totalCost;
+            // 计算月净利润
+            const netProfit = commissionIncome - totalMonthlyCost;
 
-            // 更新显示
-            document.getElementById('total-cost').textContent = formatCurrency(totalCost);
+            // 更新显示 - 小计
+            document.getElementById('hw-subtotal').textContent = formatCurrency(hwSubtotal);
+            document.getElementById('sw-subtotal').textContent = formatCurrency(swSubtotal);
+            document.getElementById('per-subtotal').textContent = formatCurrency(perSubtotal);
+            document.getElementById('total-monthly-cost').textContent = formatCurrency(totalMonthlyCost);
+
+            // 更新显示 - 首月汇总
+            document.getElementById('sum-hardware').textContent = formatCurrency(hwSubtotal);
+            document.getElementById('sum-software').textContent = formatCurrency(swSubtotal);
+            document.getElementById('sum-peripheral').textContent = formatCurrency(perSubtotal);
+            document.getElementById('sum-monthly').textContent = formatCurrency(totalMonthlyCost);
+            document.getElementById('first-month-total').textContent = formatCurrency(firstMonthTotal);
+
+            // 更新显示 - 收入
             document.getElementById('gross-revenue').textContent = formatCurrency(commissionIncome);
             document.getElementById('commission-rate').textContent = commissionRate;
 
-            document.getElementById('result-cost').textContent = formatCurrency(totalCost);
+            // 更新显示 - 结果
+            document.getElementById('result-cost').textContent = formatCurrency(totalMonthlyCost);
             document.getElementById('result-output').textContent = formatCurrency(totalOutput);
             document.getElementById('result-commission').textContent = formatCurrency(commissionIncome);
 
