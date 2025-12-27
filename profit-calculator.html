@@ -533,12 +533,22 @@
                     </div>
                 </div>
 
+                <div class="input-group"
+                    style="background: rgba(56, 189, 248, 0.1); padding: 12px; border-radius: 10px; margin-bottom: 18px;">
+                    <label><span class="emoji">📦</span> <strong>设备数量（套数）</strong></label>
+                    <div class="input-wrapper">
+                        <input type="number" id="device-qty" value="4" min="1" max="20" step="1"
+                            style="padding-left: 12px;">
+                        <span class="suffix">套</span>
+                    </div>
+                </div>
+
                 <div class="input-group">
                     <label><span class="emoji">💻</span> 主机</label>
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
                         <input type="number" id="hw-host" value="3600" min="0" step="100" class="initial-cost">
-                        <span class="suffix">×4台</span>
+                        <span class="suffix qty-suffix">×4台</span>
                     </div>
                 </div>
 
@@ -547,7 +557,7 @@
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
                         <input type="number" id="hw-monitor" value="800" min="0" step="100" class="initial-cost">
-                        <span class="suffix">×4台</span>
+                        <span class="suffix qty-suffix">×4台</span>
                     </div>
                 </div>
 
@@ -556,7 +566,7 @@
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
                         <input type="number" id="hw-capture" value="500" min="0" step="50" class="initial-cost">
-                        <span class="suffix">×4个</span>
+                        <span class="suffix qty-suffix">×4个</span>
                     </div>
                 </div>
 
@@ -581,7 +591,7 @@
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
                         <input type="number" id="sw-plugin1" value="500" min="0" step="50" class="initial-cost">
-                        <span class="suffix">×4套</span>
+                        <span class="suffix qty-suffix">×4套</span>
                     </div>
                 </div>
 
@@ -590,7 +600,7 @@
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
                         <input type="number" id="sw-other" value="300" min="0" step="50" class="initial-cost">
-                        <span class="suffix">×4套</span>
+                        <span class="suffix qty-suffix">×4套</span>
                     </div>
                 </div>
 
@@ -610,7 +620,7 @@
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
                         <input type="number" id="per-headphone" value="150" min="0" step="50" class="initial-cost">
-                        <span class="suffix">×4个</span>
+                        <span class="suffix qty-suffix">×4个</span>
                     </div>
                 </div>
 
@@ -619,7 +629,7 @@
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
                         <input type="number" id="per-keyboard" value="100" min="0" step="50" class="initial-cost">
-                        <span class="suffix">×4个</span>
+                        <span class="suffix qty-suffix">×4个</span>
                     </div>
                 </div>
 
@@ -628,7 +638,7 @@
                     <div class="input-wrapper">
                         <span class="prefix">¥</span>
                         <input type="number" id="per-mouse" value="50" min="0" step="10" class="initial-cost">
-                        <span class="suffix">×4个</span>
+                        <span class="suffix qty-suffix">×4个</span>
                     </div>
                 </div>
 
@@ -894,9 +904,19 @@
             return '¥' + num.toLocaleString('zh-CN', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         }
 
+        // 更新数量显示
+        function updateQtySuffix() {
+            const qty = parseInt(document.getElementById('device-qty').value) || 4;
+            document.querySelectorAll('.qty-suffix').forEach(el => {
+                const unit = el.textContent.replace(/×\d+/, '').trim();
+                el.textContent = `×${qty}${unit}`;
+            });
+        }
+
         // 计算所有数据
         function calculate() {
-            const qty = 4; // 设备数量
+            const qty = parseInt(document.getElementById('device-qty').value) || 4; // 设备数量
+            updateQtySuffix();
 
             // 硬件成本（一次性）
             const hwHost = (parseFloat(document.getElementById('hw-host').value) || 0) * qty;
